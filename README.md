@@ -6,6 +6,7 @@
 First Clone the project in your machine by this command
 
 - git clone https://github.com/Ibarhim3zazy/furni_1.0.0.git
+
 and then run this commands in project folder
 - composer install
 - mv .env.example .env
