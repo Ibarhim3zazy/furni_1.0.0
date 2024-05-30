@@ -73,7 +73,6 @@ tristique.
 							</div> <!-- /.service -->
 						</div>
 					</div>
-
 					<form action="{{ route('contact.update', $contactData->id) }}" method="POST">
 						@csrf
 						@method('PUT')

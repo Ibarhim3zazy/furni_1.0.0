@@ -57,7 +57,7 @@ class ContactController extends Controller
      */
     public function edit(string $id)
     {
-        $contactData = Contact::findOrFail($id)->first();
+        $contactData = Contact::findOrFail($id);
         $categories = Category::all();
         return view('contact.edit', compact(['contactData', 'categories']));
     }
@@ -83,8 +83,8 @@ class ContactController extends Controller
             $contact = Contact::findOrFail($id);
             $contact->delete();
 
-            // return back()->with('status', 'the data has been deleted successfully');
+            return back()->with('status', 'the data has been deleted successfully');
         }
-        // return back()->with('status', 'the data can not be deleted, please contact to the adminstartor');
+        return back()->with('status', 'the data can not be deleted, please contact to the adminstartor');
     }
 }
