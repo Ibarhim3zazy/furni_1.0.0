@@ -11,6 +11,8 @@
 
     @yield('content')
 
+    @include('partials.testimonial')
+
     @include('partials.footer')
 
     @include('partials.scripts')

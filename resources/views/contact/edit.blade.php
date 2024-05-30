@@ -4,7 +4,7 @@
 
 @section('contact-active', 'active')
 
-@section('hero-title', 'Contact')
+@section('hero-title', 'Edit Contact')
 
 @section('hero-content')
 Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor
@@ -74,8 +74,9 @@ tristique.
 						</div>
 					</div>
 
-					<form action="{{ route('contact.store') }}" method="POST">
+					<form action="{{ route('contact.update', $contactData->id) }}" method="POST">
 						@csrf
+						@method('PUT')
 						@if (session('status'))
 						<div class="alert alert-success">{{ session('status') }}</div>
 						@endif
@@ -84,7 +85,8 @@ tristique.
 								<div class="form-group">
 									<label class="text-black" for="fname">First name</label>
 									<input type="text" class="form-control @error('first_name') is-invalid @enderror"
-										id="fname" name="first_name" value="{{ old('first_name') }}">
+										id="fname" name="first_name"
+										value="{{ old('first_name') ?? $contactData->first_name }}">
 									@error('first_name')
 									<span style="color: #f03"> {{ $message }} </span>
 									@enderror
@@ -94,7 +96,8 @@ tristique.
 								<div class="form-group">
 									<label class="text-black" for="lname">Last name</label>
 									<input type="text" class="form-control @error('last_name') is-invalid @enderror"
-										id="lname" name="last_name" value="{{ old('last_name') }}">
+										id="lname" name="last_name"
+										value="{{ old('last_name') ?? $contactData->last_name }}">
 									@error('last_name')
 									<span style="color: #f03"> {{ $message }} </span>
 									@enderror
@@ -107,7 +110,7 @@ tristique.
 								<div class="form-group">
 									<label class="text-black" for="email">Email address</label>
 									<input type="email" class="form-control @error('email') is-invalid @enderror"
-										id="email" name="email" value="{{ old('email') }}">
+										id="email" name="email" value="{{ old('email') ?? $contactData->email }}">
 									@error('email')
 									<span style="color: #f03"> {{ $message }} </span>
 									@enderror
@@ -120,7 +123,11 @@ tristique.
 										name="category_id">
 										<option>Select Category</option>
 										@foreach ($categories as $category)
+										@if ($contactData->category_id == $category->id)
+										<option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+										@else
 										<option value="{{ $category->id }}">{{ $category->name }}</option>
+										@endif
 										@endforeach
 									</select>
 									@error('category')
@@ -132,7 +139,7 @@ tristique.
 						<div class="form-group mb-5">
 							<label class="text-black" for="message">Message</label>
 							<textarea name="message" class="form-control @error('message') is-invalid @enderror"
-								id="message" cols="30" rows="5">{{ old('first_name') }}</textarea>
+								id="message" cols="30" rows="5">{{ old('message') ?? $contactData->message }}</textarea>
 							@error('message')
 							<span style="color: #f03"> {{ $message }} </span>
 							@enderror

@@ -31,18 +31,28 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+require __DIR__.'/auth.php';
+
 Route::controller(ContactController::class)->prefix('contact')->name('contact.')->group(function () {
-    Route::get('/create', 'create')->name('create');
-    Route::post('/store', 'store')->name('store');
+    Route::get('/', 'create')->name('create');
+    Route::post('/', 'store')->name('store');
+    Route::delete('delete/{id}', 'destroy')->name('delete');
+    Route::get('edit/{id}', 'edit')->name('edit');
+    Route::put('update/{id}', 'update')->name('update');
     Route::get('/displayContacts', 'index')->name('display');
 });
 
 Route::controller(AboutController::class)->prefix('about')->name('about.')->group(function () {
-    Route::get('about', 'about')->name('view');
+    Route::get('/', 'index')->name('view');
 });
 
 Route::controller(ServicesController::class)->prefix('services')->name('services.')->group(function () {
-    Route::get('services', 'services')->name('view');
+    Route::get('/', 'index')->name('view');
 });
 
-require __DIR__.'/auth.php';
+Route::view('/', 'index')->name('index');
+Route::view('/blog', 'blog')->name('blog');
+Route::view('/shop', 'shop')->name('shop');
+Route::view('/cart', 'cart')->name('cart');
+Route::view('/checkout', 'checkout')->name('checkout');
+Route::view('/thankyou', 'thankyou')->name('thankyou');

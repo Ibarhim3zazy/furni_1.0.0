@@ -1,3 +1,4 @@
+@section('hero-section')
 <!-- Start Hero Section -->
 <div class="hero">
     <div class="container">
@@ -6,8 +7,8 @@
                 <div class="intro-excerpt">
                     <h1>@yield('hero-title')</h1>
                     <p class="mb-4">@yield('hero-content')</p>
-                    <p><a href="" class="btn btn-secondary me-2">Shop Now</a><a href="#"
-                            class="btn btn-white-outline">Explore</a></p>
+                    <p><a href="{{ route('shop') }}" class="btn btn-secondary me-2">Shop Now</a><a
+                            href="{{ route('blog') }}" class="btn btn-white-outline">Explore</a></p>
                 </div>
             </div>
             <div class="col-lg-7">
@@ -19,3 +20,4 @@
     </div>
 </div>
 <!-- End Hero Section -->
+@show

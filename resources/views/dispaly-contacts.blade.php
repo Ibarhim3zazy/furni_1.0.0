@@ -1,5 +1,7 @@
 @extends('master')
 
+@section('testimonial-section')@stop
+
 @section('displayContacts-active', 'active')
 
 @section('hero-title', 'Show All Contacts Message')
@@ -21,7 +23,10 @@ tristique.
 
 				<div class="col-md-8 col-lg-8 pb-4">
 
-
+					@if (session('status'))
+					<div class="alert alert-success">{{ session('status') }}</div>
+					@endif
+					{{-- {{ session('status') }} --}}
 					<table class="table">
 						<thead>
 							<tr>
@@ -31,6 +36,7 @@ tristique.
 								<th scope="col">Email</th>
 								<th scope="col">Message</th>
 								<th scope="col">categories</th>
+								<th scope="col"></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -42,6 +48,18 @@ tristique.
 								<td>{{ $contactData->email }}</td>
 								<td>{{ $contactData->message }}</td>
 								<td>{{ $contactData->category?->name }}</td>
+								<td>
+									{{-- <a href="{{ route('contact.delete', $contactData->id) }}"
+										class="btn btn-danger rounded-pill online-bootstrap">Delete</a> --}}
+									<form action="{{ route('contact.delete', [$contactData->id]) }}" method="post">
+										@csrf
+										@method('DELETE')
+										<input type="submit" class="btn btn-danger rounded-pill online-bootstrap"
+											name="delete" value="Delete">
+										<a href="{{ route('contact.edit', $contactData->id) }}"
+											class="btn btn-warning rounded-pill online-bootstrap">Edit</a>
+									</form>
+								</td>
 							</tr>
 							@endforeach
 						</tbody>

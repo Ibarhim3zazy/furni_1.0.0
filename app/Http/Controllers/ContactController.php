@@ -23,7 +23,6 @@ class ContactController extends Controller
      */
     public function create()
     {
-        // $catigory = new catigory();
         $categories = Category::all();
         return view('contact', compact('categories'));
     }
@@ -58,7 +57,9 @@ class ContactController extends Controller
      */
     public function edit(string $id)
     {
-        // return view('contact');
+        $contactData = Contact::findOrFail($id)->first();
+        $categories = Category::all();
+        return view('contact.edit', compact(['contactData', 'categories']));
     }
 
     /**
@@ -66,7 +67,11 @@ class ContactController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // $validatedData = $request->validated();
+        $data = $request->all();
+        $contactData = contact::findOrFail($id);
+        $contactData->update($data);
+        return back()->with('status', 'the data has been updated successfully');
     }
 
     /**
@@ -74,6 +79,12 @@ class ContactController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        if (isset($id)) {
+            $contact = Contact::findOrFail($id);
+            $contact->delete();
+
+            // return back()->with('status', 'the data has been deleted successfully');
+        }
+        // return back()->with('status', 'the data can not be deleted, please contact to the adminstartor');
     }
 }
